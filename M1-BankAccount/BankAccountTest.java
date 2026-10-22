@@ -1,6 +1,6 @@
 /**
  * CSC372 Module 1 Critical Thinking - Implementing a Superclass Bank Account
- * BankAccountTest: exercises BankAccount and CheckingAccount through four test cases.
+ * BankAccountTest: exercises BankAccount and CheckingAccount through six test cases.
  */
 public class BankAccountTest {
     public static void main(String[] args) {
@@ -35,5 +35,13 @@ public class BankAccountTest {
         System.out.println("Holder: " + checking.getFirstName() + " " + checking.getLastName()
                 + " | ID: " + checking.getAccountID() + " | Rate: " + checking.getInterestRate() + "%");
         System.out.printf("Balance via getBalance(): $%.2f%n", checking.getBalance());
+
+        System.out.println();
+        System.out.println("=== Test 6: Polymorphism - withdrawal() through a BankAccount reference ===");
+        BankAccount plain = savings;                    // static type BankAccount, runtime BankAccount
+        BankAccount overdraftable = checking;           // static type BankAccount, runtime CheckingAccount
+        plain.withdrawal(1000.00);                      // BankAccount.withdrawal: declined
+        overdraftable.withdrawal(100.00);               // CheckingAccount.withdrawal override: overdraft + fee
+        overdraftable.accountSummary();                 // 30 - 100 - 30 = -$100.00
     }
 }

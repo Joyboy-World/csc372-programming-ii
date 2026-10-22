@@ -19,13 +19,20 @@ public class CheckingAccount extends BankAccount {
     // negative, a $30 fee is assessed, and the resulting negative balance is displayed.
     public void processWithdrawal(double amount) {
         if (amount <= balance) {
-            withdrawal(amount);   // inherited normal path
+            super.withdrawal(amount);   // inherited normal path
             System.out.printf("Withdrawal of $%.2f processed. Balance: %s%n", amount, formatMoney(balance));
         } else {
             balance -= amount + OVERDRAFT_FEE;
             System.out.printf("Withdrawal of $%.2f processed as an OVERDRAFT. Balance: %s. A $%.2f overdraft fee has been assessed.%n",
                     amount, formatMoney(balance), OVERDRAFT_FEE);
         }
+    }
+
+    // Overrides the inherited withdrawal() so a CheckingAccount allows overdrafts even when it is
+    // used through a BankAccount reference (polymorphism): the call is routed to processWithdrawal().
+    @Override
+    public void withdrawal(double amount) {
+        processWithdrawal(amount);
     }
 
     // Displays all superclass attributes plus the interest rate.
