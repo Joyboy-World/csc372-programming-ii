@@ -75,7 +75,7 @@ public class BankBalanceGUI extends JFrame implements ActionListener {
             }
         });
 
-        setSize(520, 240);
+        setSize(640, 260);
         setLocationRelativeTo(null);
     }
 
